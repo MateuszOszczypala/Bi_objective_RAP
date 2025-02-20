@@ -1,4 +1,7 @@
 %% Non-dominated sorting genetic algorithm (NSGA-II) for RAP
+clear;clc;
+addpath('aux_functions');
+
 initime = cputime;
 
 % Weight constraint
@@ -35,7 +38,7 @@ unit_weight = [1 2 1.5 2.5 3.5 1.5 4 4.5 2 6.5 2.5 2.5 3.5 1 4];
 population_size = 200;
 
 % number of generation
-max_iteration = 1000;
+max_iteration = 100;
 
 % size declaration
 n(1:m,1:population_size,1:max_iteration) = NaN; % total number of components in subsystem
@@ -124,6 +127,7 @@ for num_iteration = 1:max_iteration
     populations(1:m, 1:10, 1:population_size/2, num_iteration+1) = selected_parents;
     % Save the offspring as a half of new generation
     populations(1:m, 1:10, population_size/2+1:population_size, num_iteration+1) = offspring_mutated;
+    disp("iteration " + num_iteration);
 end
 
 % computation time
