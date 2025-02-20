@@ -1,18 +1,16 @@
 %% Non-dominated sorting genetic algorithm (NSGA-II) for RAP
-clear;clc;
-addpath('aux_functions');
-
 initime = cputime;
 
 % Weight constraint
-Weight = 500;
+Weight = 150;
 
 % System characteristics
 % number of subsystems
 m = 15;
 
 % minimal number (k) for subsystems
-k = [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1];
+%k = [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1];
+k = [1 2 2 1 2 2 1 3 1 3 1 2 1 2 1];
 
 % sum of all k number
 K = sum(k);
@@ -105,14 +103,14 @@ for num_iteration = 1:max_iteration
             
         end
 
-        % Calculate the system availability
-        system_availability_values(num_iteration, num_individual) = system_availability(subsystem_availability_values(:,num_individual,num_iteration));
+        % Calculate the system availability % % switch index place in system_availability_values(1:population_size, num_iteration)
+        system_availability_values(num_individual, num_iteration) = system_availability(subsystem_availability_values(:,num_individual,num_iteration));
         
-        % Calculate the system cost
-        total_system_cost(num_iteration, num_individual) = Cost(n(:,num_individual,num_iteration)', unit_cost);
+        % Calculate the system cost %  % switch index place in total_system_cost(1:population_size, num_iteration)
+        total_system_cost(num_individual, num_iteration) = Cost(n(:,num_individual,num_iteration)', unit_cost);
     end
-    % Idnicate the Pareto fronts
-    [sorted_individuals, domination_Pareto, objective_values] = Pareto_front(population_size, system_availability_values(num_iteration, 1:population_size), total_system_cost(num_iteration, 1:population_size), populations(1:m, 1:10, 1:population_size, num_iteration), m);
+    % Idnicate the Pareto fronts % switch index place in system_availability_values(1:population_size, num_iteration), total_system_cost(1:population_size, num_iteration)
+    [sorted_individuals, domination_Pareto, objective_values] = Pareto_front(population_size, system_availability_values(1:population_size, num_iteration), total_system_cost(1:population_size, num_iteration), populations(1:m, 1:10, 1:population_size, num_iteration), m);
     
     % Parents selection for next generation
     [selected_parents, avaialbility_cost_dominance_front] = Parents(sorted_individuals, domination_Pareto,  objective_values, population_size, m);
@@ -127,7 +125,6 @@ for num_iteration = 1:max_iteration
     populations(1:m, 1:10, 1:population_size/2, num_iteration+1) = selected_parents;
     % Save the offspring as a half of new generation
     populations(1:m, 1:10, population_size/2+1:population_size, num_iteration+1) = offspring_mutated;
-    disp("iteration " + num_iteration);
 end
 
 % computation time
