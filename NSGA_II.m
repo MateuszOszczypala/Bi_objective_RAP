@@ -1,4 +1,6 @@
 %% Non-dominated sorting genetic algorithm (NSGA-II) for RAP
+addpath('aux_functions');
+
 initime = cputime;
 
 % Weight constraint
@@ -125,6 +127,7 @@ for num_iteration = 1:max_iteration
     populations(1:m, 1:10, 1:population_size/2, num_iteration+1) = selected_parents;
     % Save the offspring as a half of new generation
     populations(1:m, 1:10, population_size/2+1:population_size, num_iteration+1) = offspring_mutated;
+    disp("iteration "+num_iteration);
 end
 
 % computation time
