@@ -116,7 +116,7 @@ for num_iteration = 1:max_iteration
         end
 
         % Calculate the system availability % % switch index place in system_availability_values(1:population_size, num_iteration)
-        system_availability_values(num_individual, num_iteration) = system_availability(subsystem_availability_values(:,num_individual,num_iteration));
+        system_availability_values(num_individual, num_iteration) = system_availability_CS1(subsystem_availability_values(:,num_individual,num_iteration));
         
         % Calculate the system cost %  % switch index place in total_system_cost(1:population_size, num_iteration)
         total_system_cost(num_individual, num_iteration) = Cost(n(:,num_individual,num_iteration)', unit_cost);
