@@ -1,44 +1,54 @@
 %% Non-dominated sorting genetic algorithm (NSGA-II) for RAP
 addpath('aux_functions');
 
-initime = cputime;
-
 % Weight constraint
-Weight = 150;
+Weight = 60;
+% Another levels of weight constraints:
+% Weight = 60;
+% Weight = 80;
+% Weight = 100;
+% Weight = 120;
 
 % System characteristics
 % number of subsystems
-m = 15;
+m = 5;
 
 % minimal number (k) for subsystems
-%k = [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1];
-k = [1 2 2 1 2 2 1 3 1 3 1 2 1 2 1];
+k = [1 1 1 1 1];
 
 % sum of all k number
 K = sum(k);
 
 % lambda failure rates for active component
-working_failure_rate = [0.18 0.22 0.26 0.31 0.22 0.17 0.52 0.55 0.34 0.46 0.35 0.15 0.27 0.33 0.68];
-warm_standby_failure_rate = working_failure_rate * 0.1;
+
+% working_failure_rate = round(rand(5,1), 2);
+% warm_standby_failure_rate = round((0.5*rand(1)+0.2)*working_failure_rate, 2);
+working_failure_rate = [0.75 0.26 0.51 0.70 0.89];
+warm_standby_failure_rate = [0.50 0.17 0.34 0.47 0.59];
 
 % beta switching rates for standby component to active
-cold_standby_switching_rate = [10 10 10 10 10 10 10 10 10 10 10 10 10 10 10];
-warm_standby_switching_rate = cold_standby_switching_rate * 2;
+% cold_standby_switching_rate = round(5+2*rand(5,1), 2);
+% warm_standby_switching_rate = round((1+2*rand(1))*cold_standby_switching_rate, 2);
+cold_standby_switching_rate = [5.30 6.65 6.08 6.99 5.16];
+warm_standby_switching_rate = [9.99 12.54 11.46 13.18 9.73];
 
 % mu repiar rates
-repair_rate = [0.3 0.4 0.5 0.4 0.45 0.50 0.55 0.65 0.75 0.8 0.65 0.6 0.7 0.5 0.8];
+% repair_rate = round(1+rand(5,1), 2);
+repair_rate = [1.14 1.87 1.58 1.55 1.14];
 
-% c_unit unit cost
-unit_cost = [12 9 8 7.5 8.5 11.5 5 4.5 8 7.5 9.5 12.5 8.5 7 4];
+% component unit cost
+% unit_cost = round(4+6*rand(5,1), 2);
+unit_cost = [6.50 4.30 9.42 9.67 6.95];
 
 % component weight
-unit_weight = [1 2 1.5 2.5 3.5 1.5 4 4.5 2 6.5 2.5 2.5 3.5 1 4];
+% unit_weight = round(1+3*rand(5,1), 2);
+unit_weight = [3.56 2.87 2.05 2.54 2.21];
 
 % population size
 population_size = 200;
 
 % number of generation
-max_iteration = 100;
+max_iteration = 1000;
 
 % size declaration
 n(1:m,1:population_size,1:max_iteration) = NaN; % total number of components in subsystem
