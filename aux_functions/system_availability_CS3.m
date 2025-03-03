@@ -1,0 +1,6 @@
+function system_availability_values = system_availability_CS3(A) % complex bridge system with 5 subsystems
+    % A subsystems availability
+    system_availability_values = A(1)*A(2)+A(3)*A(4)+A(1)*A(4)*A(5)+A(2)*A(3)*A(5)-A(1)*A(2)*A(3)*A(4)-...
+    A(1)*A(2)*A(3)*A(5)-A(1)*A(2)*A(4)*A(5)-A(1)*A(3)*A(4)*A(5)-...
+    A(2)*A(3)*A(4)*A(5)+2*A(1)*A(2)*A(3)*A(4)*A(5);
+end
