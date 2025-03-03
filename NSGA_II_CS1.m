@@ -61,11 +61,24 @@ system_availability_values(1:population_size, 1:max_iteration) = NaN;
 total_system_cost(1:population_size, 1:max_iteration) = NaN;
 redundancy_strategy(1:m, 1:population_size, 1:max_iteration) = NaN;
 
-% initial generation - Scaled Binomial Initialization
+% initial generation for genes 1-8 - Scaled Binomial Initialization
 for num_individual = 1:population_size
     for f = 1:m
-        for gene = 1:10
+        for gene = 1:8
             if rand(1) <= sqrt((num_individual-0.5)/population_size)
+                g = 0;
+            else
+                g = 1;                
+            end
+            populations(f, gene, num_individual, 1) = g;
+        end
+    end
+end
+% initial generation for genes 9-10 - Standard random initialization
+for num_individual = 1:population_size
+    for f = 1:m
+        for gene = 9:10
+            if rand(1) <= 0.5
                 g = 0;
             else
                 g = 1;                
