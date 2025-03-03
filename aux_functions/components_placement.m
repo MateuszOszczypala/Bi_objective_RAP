@@ -1,6 +1,6 @@
 function standby_components = components_placement(m, decoded_chromosomes, available_weight, unit_weight)
     for i = 1:m
-        weight_placement(i) = (decoded_chromosomes(i)/(sum(decoded_chromosomes)+1e-06))*available_weight;
+        weight_placement(i) = (decoded_chromosomes(i)/255)*available_weight;
         a(i) = weight_placement(i)/unit_weight(i);
         standby_components(i) = floor(a(i));
     end
