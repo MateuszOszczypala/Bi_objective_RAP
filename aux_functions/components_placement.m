@@ -1,26 +1,18 @@
 function standby_components = components_placement(m, decoded_chromosomes, available_weight, unit_weight)
+    priority = zeros(1, m);  
     for i = 1:m
-        weight_placement(i) = (decoded_chromosomes(i)/255)*available_weight;
-        a(i) = weight_placement(i)/unit_weight(i);
-        standby_components(i) = floor(a(i));
+        priority(i) = (decoded_chromosomes(i)/255);
+        max_comp(i) = floor(available_weight/unit_weight(i));
     end
-    
-    if sum(standby_components.*unit_weight) < available_weight
-        r = available_weight - sum(standby_components.*unit_weight);
-        d = (a-standby_components);
-        while r >= min(unit_weight)
-            d_max = max(d);
-            for i = 1:m
-                if r >= unit_weight(i)
-                    if d(i) == d_max
-                       standby_components(i) = standby_components(i) + 1;
-                       r = r - unit_weight(i);
-                       d(i) = d(i)/m;
-                    end
-                else
-                    d(i) = 0;
-                end
-            
+    standby_components = floor(max_comp.*priority);
+    while sum(standby_components.*unit_weight) > available_weight
+        for i = 1:m
+            if priority(i) == min(priority) && standby_components(i)>0
+                standby_components(i) = standby_components(i) - 1;
+                priority(i) = priority(i)*2;
+            end
+            if standby_components(i) == 0
+                priority(i) = inf;
             end
         end
     end
