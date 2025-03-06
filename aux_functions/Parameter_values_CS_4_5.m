@@ -1,10 +1,10 @@
 % Weight constraint
-Weight = 700;
+Weight = 1200;
 % Another levels of weight constraints:
-% Weight = 700;
-% Weight = 800;
-% Weight = 900;
-% Weight = 1000;
+% Weight = 1200;
+% Weight = 1500;
+% Weight = 1800;
+% Weight = 2100;
 
 % System characteristics
 % number of subsystems
