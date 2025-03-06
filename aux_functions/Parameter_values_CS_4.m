@@ -3,8 +3,8 @@ Weight = 100;
 % Another levels of weight constraints:
 % Weight = 100;
 % Weight = 120;
-% Weight = 150;
-% Weight = 180;
+% Weight = 140;
+% Weight = 160;
 
 % System characteristics
 % number of subsystems
