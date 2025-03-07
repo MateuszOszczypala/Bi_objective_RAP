@@ -3,7 +3,7 @@ clear;
 initime = cputime;
 
 % Weight constraint
-Weight = 30;
+Weight = 60;
 % Another levels of weight constraints:
 % Weight = 60;
 % Weight = 80;
