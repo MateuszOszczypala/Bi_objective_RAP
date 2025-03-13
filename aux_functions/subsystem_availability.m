@@ -7,10 +7,10 @@ function Subsystem_availabilities = subsystem_availability(n, k, Ergodic_prob, r
         Subsystem_availabilities = sum(Ergodic_prob(1:n-k+1));
 
      elseif redundancy_strategy == 2 % mixed standby
-        Subsystem_availabilities = sum(Ergodic_prob(1:n-k+1));   
+         Subsystem_availabilities = sum(Ergodic_prob(1:2*n-2*k+1));
     
-    elseif redundancy_strategy == 3 % hot standby        
-        Subsystem_availabilities = sum(Ergodic_prob(1:2*n-2*k+1));      
+    elseif redundancy_strategy == 3 % hot standby 
+        Subsystem_availabilities = sum(Ergodic_prob(1:n-k+1));  
            
     end
 end
