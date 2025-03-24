@@ -23,8 +23,8 @@ function CTMC = CTMC_hot_standby(n, k, working_failure_rate, repair_rate)
     for i = 1:(n-k+2)
         for j = 1:(n-k+2)
             if State_space(i,1) - State_space(j,1) == 1
-                % Failure of working component
-                CTMC(i, j) = State_space(i,1) * working_failure_rate;
+                % Failure of operational component
+                CTMC(i, j) = (State_space(i,1)+State_space(i,2)) * working_failure_rate;
             elseif State_space(i,3) - State_space(j,3) == 1
                 % Repair
                 CTMC(i, j) = State_space(i,3) * repair_rate;
