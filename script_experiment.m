@@ -1,4 +1,7 @@
 clear;clc; close all;
+addpath("aux_functions/");
+addpath("Algorithms");
+
 alg_name = "NSGAII";
 nr_reps = 10;
 pop_size = 200;
@@ -7,7 +10,7 @@ do_plot = 0;
 do_save = 1;
 
 % CS1
-CS = 1; weights = [60,80,100,120]; d = 10;
+%CS = 1; weights = [60,80,100,120]; d = 10;
 % CS2
 %CS = 2; weights = [60,80,100,120]; d = 10;
 % CS3
