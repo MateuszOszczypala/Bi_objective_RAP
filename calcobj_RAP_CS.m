@@ -1,4 +1,4 @@
-classdef calcobj_RAP_CS1 < PROBLEM
+classdef calcobj_RAP_CS < PROBLEM
 % <2021> <multi> <binary> <large/none> <expensive/none> <sparse/none>
 % The community detection problem
 % dataNo --- 1 --- Number of dataset
@@ -20,12 +20,13 @@ classdef calcobj_RAP_CS1 < PROBLEM
     methods
     	%% Default settings of the problem
         function Setting(obj)
+            global d;
             % Problem info
             obj.M = 2;
-            obj.D = 30;
+            obj.D = d;
             obj.lower    = [0*ones(1, obj.D)];
-            obj.upper    = [255*ones(1, 15),3*ones(1, 15)];
-            obj.encoding = [1 + zeros(1,15),2 + zeros(1,15)]; %half real, half integer
+            obj.upper    = [255*ones(1, d/2),3*ones(1, d/2)];
+            obj.encoding = [1 + zeros(1,d/2),2 + zeros(1,d/2)]; %half real, half integer
             % Maximum and minimum objective values for normalization
         end
         %% Random initialization
@@ -71,15 +72,18 @@ classdef calcobj_RAP_CS1 < PROBLEM
 
         %% Calculate objective values
         function PopObj = CalObj(obj,PopDec)
-            PopDec = floor(PopDec);        
+            global archive_obj_vals archive_sols iter;
+            iter = iter + 1;
             PopObj = zeros(size(PopDec,1),obj.M);
             for i = 1 : size(PopObj,1)
                 C = PopDec(i,:);
-                [temp1,temp2] = obj_true_CS1(C);
+                [temp1,temp2] = obj_true_CS(C);
                 temp1 = -temp1; %maximization to minimization
                 PopObj(i,1) = temp1;
                 PopObj(i,2) = temp2;
             end
+            archive_obj_vals{iter,:} = PopObj;
+            archive_sols{iter,:} = PopDec;
         end
         %% Display a population in the decision space
     end

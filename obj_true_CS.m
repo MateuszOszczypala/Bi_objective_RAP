@@ -1,37 +1,19 @@
-function [system_availability_val,total_system_cost] = obj_true_CS1(x)
-% System characteristics
-% number of subsystems
-m = 15;
+function [system_availability_val,total_system_cost] = obj_true_CS(x)
+global CS Weight;
+
+if CS <= 3
+    Parameter_values_CS_1_2_3;
+elseif CS <= 4
+    Parameter_values_CS_4;
+elseif CS <= 5 
+    Parameter_values_CS_5;
+else
+    Parameter_values_CS_6;
+end
+
 decoded_chromosomes = x(1:m);
 redundancy_strategy = x(m+1:end);
-% Weight constraint
-Weight = 150;
 
-% System characteristics
-% minimal number (k) for subsystems
-%k = [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1];
-k = [1 2 2 1 2 2 1 3 1 3 1 2 1 2 1];
-
-% sum of all k number
-K = sum(k);
-
-% lambda failure rates for active component
-working_failure_rate = [0.18 0.22 0.26 0.31 0.22 0.17 0.52 0.55 0.34 0.46 0.35 0.15 0.27 0.33 0.68];
-warm_standby_failure_rate = working_failure_rate * 0.1;
-
-% beta switching rates for standby component to active
-cold_standby_switching_rate = [10 10 10 10 10 10 10 10 10 10 10 10 10 10 10];
-warm_standby_switching_rate = cold_standby_switching_rate * 2;
-
-% mu repiar rates
-repair_rate = [0.3 0.4 0.5 0.4 0.45 0.50 0.55 0.65 0.75 0.8 0.65 0.6 0.7 0.5 0.8];
-
-% c_unit unit cost
-unit_cost = [12 9 8 7.5 8.5 11.5 5 4.5 8 7.5 9.5 12.5 8.5 7 4];
-
-% component weight
-unit_weight = [1 2 1.5 2.5 3.5 1.5 4 4.5 2 6.5 2.5 2.5 3.5 1 4];
-       
 % Allocate the components into subsystems
 standby_components = components_placement(m, decoded_chromosomes, Weight-sum(k.*unit_weight), unit_weight);
 n = k + standby_components;
@@ -62,7 +44,20 @@ for num_subsystem = 1:m
 end
 
 % Calculate the system availability
-system_availability_val = system_availability(subsystem_availability_values);
+switch CS
+    case 1
+        system_availability_val = system_availability_CS1(subsystem_availability_values);
+    case 2
+        system_availability_val = system_availability_CS2(subsystem_availability_values);
+    case 3
+        system_availability_val = system_availability_CS3(subsystem_availability_values);
+    case 4
+        system_availability_val = system_availability_CS4(subsystem_availability_values);
+    case 5
+        system_availability_val = system_availability_CS5(subsystem_availability_values);
+    case 6
+        system_availability_val = system_availability_CS6(subsystem_availability_values);
+end
 
 % Calculate the system cost
 

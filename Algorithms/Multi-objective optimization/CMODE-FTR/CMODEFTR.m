@@ -1,5 +1,5 @@
 classdef CMODEFTR < ALGORITHM
-% <multi> <real/integer> <constrained>
+% <2023> <multi> <real/integer> <constrained>
 % Constrained multiobjective differential evolution based on the fusion of two rankings
 
 %------------------------------- Reference --------------------------------

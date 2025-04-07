@@ -49,7 +49,7 @@ unit_weight = [1.67 1.46 1.00 1.13 1.10 0.98 0.88 0.78 1.10 0.97];
 population_size = 200;
 
 % number of generation
-max_iteration = 10000;
+max_iteration = 100;
 
 % size declaration
 n(1:m,1:population_size,1:max_iteration) = NaN; % total number of components in subsystem
@@ -158,4 +158,4 @@ end
 fintime = cputime;
 computation_time = fintime - initime;
 
-% plot(objective_values(:,2), objective_values(:,1), "o");
+plot(objective_values(:,2), objective_values(:,1), "o");
