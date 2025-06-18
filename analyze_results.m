@@ -8,7 +8,7 @@ clear;clc;clf;
 %CS = 6; weights = [80,100,120,140]; 
 
 CS = 6; Weight = 120;
-%CS = 2; Weight = 100;
+%CS = 5; Weight = 80;
 
 temp = dir("results_analyzed");
 T = table;
@@ -45,11 +45,15 @@ hold on;
 linewidth = 2;
 it = 1;
 for i=1:height(T)
-    hypervol_vals = zeros(10,20);
+    hypervol_vals = zeros(10,38);
     for ii=1:10
-        for iii=1:20
+        for iii=1:38
             temp_vals = T{i,"pareto_front_vals"}{ii}{iii};
-            hypervol_vals(ii,iii) = calc_HV(temp_vals,max_vals);
+            if min(size(temp_vals)) == 1
+                hypervol_vals(ii,iii) = prod(max_vals-temp_vals);
+            else
+                hypervol_vals(ii,iii) = calc_HV(temp_vals,max_vals);
+            end
         end
     end
     T{i,"hypervol_vals"} = {hypervol_vals};
@@ -67,4 +71,6 @@ ax = gca;
 ax.XScale = 'log';
 grid on;
 l = legend;
-l.Location = 'east';
+l.Location = 'southeast';
+l.NumColumns = 3;
+ax.XLim = [200 2000000];
