@@ -65,12 +65,12 @@ for i=1:height(T)
         name = T{i,"name"}{:};
         linestyle = "--";
     end
-    plot(T{i,"ticks"},mean(T{i,"hypervol_vals"}{:}),'DisplayName',name,'LineStyle',linestyle,'LineWidth',linewidth);
+    p(i) = plot(T{i,"ticks"},mean(T{i,"hypervol_vals"}{:}),'DisplayName',name,'LineStyle',linestyle,'LineWidth',linewidth);
 end
 ax = gca;
 ax.XScale = 'log';
 grid on;
-l = legend;
+l = legend(p);
 l.Location = 'southeast';
-l.NumColumns = 3;
+l.NumColumns = 5;
 ax.XLim = [200 2000000];
