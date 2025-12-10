@@ -1,5 +1,5 @@
 % Weight constraint
-Weight = 100;
+%Weight = 100;
 % Another levels of weight constraints:
 % Weight = 100;
 % Weight = 120;

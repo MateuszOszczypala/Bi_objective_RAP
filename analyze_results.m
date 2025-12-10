@@ -7,8 +7,8 @@ clear;clc;clf;
 %CS = 5; weights = [50,60,70,80];
 %CS = 6; weights = [80,100,120,140]; 
 
-CS = 6; Weight = 120;
-%CS = 5; Weight = 80;
+%CS = 6; Weight = 120;
+CS = 6; Weight = 80;
 
 temp = dir("results_analyzed");
 T = table;

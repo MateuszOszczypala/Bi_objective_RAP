@@ -1,23 +1,26 @@
+% SCRIPT FOR CREATING TABLES WITH AGGEGATE RESULTS AND STATISTICS TESTS
 clear;clc;close all;
 
-CS = 1; weights = [60,80,100,120];
+%CS = 1; weights = [60,80,100,120];
 %CS = 2; weights = [60,80,100,120]; 
 %CS = 3; weights = [60,80,100,120];
 %CS = 4; weights = [100,120,140,160];
 %CS = 5; weights = [50,60,70,80];
-%CS = 6; weights = [80,100,120,140];
+CS = 6; weights = [80,100,120,140];
 
 %CS = 6; Weight = 120;
 %CS = 5; Weight = 80;
 
-temp = dir("results_analyzed");
+dirname = "results_analyzed/";
+
+temp = dir(dirname);
 for cntr = 1:4
     Weight = weights(cntr);
     T = table;
     for i=3:length(temp)
         name = temp(i).name;
         file = "results_CS"+CS+"_Weight"+Weight+"_"+name;
-        try load("results_analyzed/"+name+"/"+file+".mat")
+        try load(dirname+name+"/"+file+".mat")
             T{end+1,"name"} = {name};
             T{end,"sbi"} = 0;
             T{end,"ticks"} = results.ticks;
@@ -28,7 +31,7 @@ for cntr = 1:4
             end
             T{end,"max_vals"} = max(temp_vals);
         end
-        try load("results_analyzed/"+name+"/"+file+"_SBI.mat")
+        try load(dirname+name+"/"+file+"_SBI.mat")
             T{end+1,"name"} = {name};
             T{end,"sbi"} = 1;
             T{end,"ticks"} = results.ticks;
